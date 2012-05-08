@@ -197,7 +197,7 @@ public class BlockIntersection {
         Vector speed = new Vector();
         double speedNumber = 0.3913788423600029D;
         Location newLocation = minecart.getLocation();
-        if (newDriveDirection.equalsIgnoreCase("R") || newDriveDirection.equalsIgnoreCase("M") || newDriveDirection.equalsIgnoreCase("L")) {
+        if (newDriveDirection.equalsIgnoreCase("R") || newDriveDirection.equalsIgnoreCase("M") || newDriveDirection.equalsIgnoreCase("L") || newDriveDirection.equalsIgnoreCase("T")) {
             if (minecart.getVelocity().getX() > 0.0D) {
                 if (newDriveDirection.equalsIgnoreCase("R")) {
                     speed.setZ(speedNumber);
@@ -205,6 +205,9 @@ public class BlockIntersection {
                 } else if (newDriveDirection.equalsIgnoreCase("L")) {
                     speed.setZ(-speedNumber);
                     newLocation.setZ(newLocation.getZ() - 1.0D);
+                } else if (newDriveDirection.equalsIgnoreCase("T")) {
+                    speed.setX(-speedNumber);
+                    newLocation.setX(newLocation.getX() - 1.0D);
                 } else if (newDriveDirection.equalsIgnoreCase("M")) {
                     speed.setX(speedNumber);
                 }
@@ -215,6 +218,9 @@ public class BlockIntersection {
                 } else if (newDriveDirection.equalsIgnoreCase("L")) {
                     speed.setZ(speedNumber);
                     newLocation.setZ(newLocation.getZ() + 1.0D);
+                } else if (newDriveDirection.equalsIgnoreCase("T")) {
+                    speed.setX(speedNumber);
+                    newLocation.setX(newLocation.getX() + 1.0D);
                 } else if (newDriveDirection.equalsIgnoreCase("M")) {
                     speed.setX(-speedNumber);
                 }
@@ -225,6 +231,9 @@ public class BlockIntersection {
                 } else if (newDriveDirection.equalsIgnoreCase("L")) {
                     speed.setX(speedNumber);
                     newLocation.setX(newLocation.getX() + 1.0D);
+                } else if (newDriveDirection.equalsIgnoreCase("T")) {
+                    speed.setZ(-speedNumber);
+                    newLocation.setZ(newLocation.getZ() - 1.0D);
                 } else if (newDriveDirection.equalsIgnoreCase("M")) {
                     speed.setZ(speedNumber);
                 }
@@ -235,6 +244,9 @@ public class BlockIntersection {
                 } else if (newDriveDirection.equalsIgnoreCase("L")) {
                     speed.setX(-speedNumber);
                     newLocation.setX(newLocation.getX() - 1.0D);
+                } else if (newDriveDirection.equalsIgnoreCase("T")) {
+                    speed.setZ(speedNumber);
+                    newLocation.setZ(newLocation.getZ() + 1.0D);
                 } else if (newDriveDirection.equalsIgnoreCase("M")) {
                     speed.setZ(-speedNumber);
                 }
