@@ -147,13 +147,13 @@ public class BlockIntersection {
     public void playerPunch(Minecart minecart, Vector punchVelocity) {
 
         if (MinecartRevolution.blockUtil.getSignBlockSign(minecart) == null) {
-            if (punchVelocity.getX() >= 0 && punchVelocity.getZ() >= 0) {
+            if (punchVelocity.getX() > 0 && punchVelocity.getZ() > -0.5D && punchVelocity.getZ() < 0.5D) {
                 driveMinecart(minecart, "W");
-            } else if (punchVelocity.getX() <= 0 && punchVelocity.getZ() <= 0) {
+            } else if (punchVelocity.getX() <= 0 && punchVelocity.getZ() > -0.5D && punchVelocity.getZ() < 0.5D) {
                 driveMinecart(minecart, "E");
-            } else if (punchVelocity.getZ() >= 0 && punchVelocity.getX() <= 0) {
+            } else if (punchVelocity.getZ() >= 0 && punchVelocity.getX() > -0.5D && punchVelocity.getX() < 0.5D) {
                 driveMinecart(minecart, "N");
-            } else if (punchVelocity.getZ() <= 0 && punchVelocity.getX() >= 0) {
+            } else if (punchVelocity.getZ() <= 0 && punchVelocity.getX() > -0.5D && punchVelocity.getX() < 0.5D) {
                 driveMinecart(minecart, "S");
             }
         }
