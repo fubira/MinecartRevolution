@@ -164,16 +164,9 @@ public class BlockIntersection {
 
     public void resetPunchMessage(Minecart minecart) {
 
-        if (minecart.getPassenger() instanceof Player) {
-            Player player = (Player) minecart.getPassenger();
-            try {
-                if (punchMessagePlayerMap.get(player) == null) {
-                    punchMessagePlayerMap.put(player, false);
-                }
-            }
-            catch (NullPointerException ex) {
-            }
-            punchMessagePlayerMap.remove(player);
+        Entity passenger = minecart.getPassenger();
+        if (passenger instanceof Player) {
+            Player player = (Player) passenger;
             punchMessagePlayerMap.put(player, false);
         }
     }
