@@ -58,8 +58,9 @@ public class BlockIntersection {
 
         String newDriveDirection = "";
         String[] lineContent = sign.getLine(line).split(":");
+
         try {
-            if (lineContent[0].equalsIgnoreCase("N") || lineContent[0].equalsIgnoreCase("E") || lineContent[0].equalsIgnoreCase("S") || lineContent[0].equalsIgnoreCase("W")) {
+            if (lineContent[0].equalsIgnoreCase("N") || lineContent[0].equalsIgnoreCase("E") || lineContent[0].equalsIgnoreCase("S") || lineContent[0].equalsIgnoreCase("W") || lineContent[0].equalsIgnoreCase("D")) {
                 if (lineContent[0].equalsIgnoreCase("N") && minecart.getVelocity().getZ() > 0.0D) {
                     newDriveDirection = lineContent[1];
                 } else if (lineContent[0].equalsIgnoreCase("E") && minecart.getVelocity().getX() < 0.0D) {
@@ -67,6 +68,8 @@ public class BlockIntersection {
                 } else if (lineContent[0].equalsIgnoreCase("S") && minecart.getVelocity().getZ() < 0.0D) {
                     newDriveDirection = lineContent[1];
                 } else if (lineContent[0].equalsIgnoreCase("W") && minecart.getVelocity().getX() > 0.0D) {
+                    newDriveDirection = lineContent[1];
+                } else if (lineContent[0].equalsIgnoreCase("D")) {
                     newDriveDirection = lineContent[1];
                 }
             } else if (lineContent[0].equalsIgnoreCase("Storage") && minecart instanceof StorageMinecart) {
@@ -138,6 +141,7 @@ public class BlockIntersection {
             }
         }
         catch (Exception ex) {
+            ex.printStackTrace();
         }
 
         if (newDriveDirection != "") {

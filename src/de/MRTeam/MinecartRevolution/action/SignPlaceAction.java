@@ -170,7 +170,7 @@ public class SignPlaceAction implements Listener {
             boolean allPermissions = true;
             for (int counter = 1; counter <= 3; counter++) {
                 String[] lineContent = event.getLine(counter).split(":");
-                if ( (lineContent[0].contains("N") || lineContent[0].equalsIgnoreCase("E") || lineContent[0].equalsIgnoreCase("S") || lineContent[0].equalsIgnoreCase("W")) && MinecartRevolution.permissionUtil.hasPermission(event.getPlayer(), "placeCtrlBlock", "intersectionSign.direction")) {
+                if ( (lineContent[0].contains("N") || lineContent[0].equalsIgnoreCase("E") || lineContent[0].equalsIgnoreCase("S") || lineContent[0].equalsIgnoreCase("W") || lineContent[0].equalsIgnoreCase("D")) && MinecartRevolution.permissionUtil.hasPermission(event.getPlayer(), "placeCtrlBlock", "intersectionSign.direction")) {
                 } else if ( (lineContent[0].contains("Standard") || lineContent[0].contains("Storage") || lineContent[0].contains("Powered")) && MinecartRevolution.permissionUtil.hasPermission(event.getPlayer(), "placeCtrlBlock", "intersectionSign.minecart")) {
                 } else if (lineContent[0].contains("Player") && MinecartRevolution.permissionUtil.hasPermission(event.getPlayer(), "placeCtrlBlock", "intersectionSign.player")) {
                 } else if (lineContent[0].contains("Mob") && MinecartRevolution.permissionUtil.hasPermission(event.getPlayer(), "placeCtrlBlock", "intersectionSign.mob")) {
