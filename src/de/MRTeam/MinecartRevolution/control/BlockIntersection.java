@@ -239,8 +239,10 @@ public class BlockIntersection {
             newLocation.setX(newLocation.getX() + 1.0D);
         } else if (newDriveDirection.equalsIgnoreCase("D")) {
             minecart.remove();
+            return;
         } else if (newDriveDirection.equalsIgnoreCase("EJ")) {
             MinecartRevolution.blockAction.blockEject.execute(minecart);
+            return;
         }
 
         minecart.setVelocity(speed);
