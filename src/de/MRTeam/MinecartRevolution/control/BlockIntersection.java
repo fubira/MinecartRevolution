@@ -145,7 +145,11 @@ public class BlockIntersection {
         }
 
         if (newDriveDirection != "") {
-            driveMinecart(minecart, newDriveDirection);
+            if (newDriveDirection.equalsIgnoreCase("A")) {
+                sendPunchMessage(minecart);
+            } else {
+                driveMinecart(minecart, newDriveDirection);
+            }
             return true;
         }
         return false;
@@ -153,7 +157,20 @@ public class BlockIntersection {
 
     public void playerPunch(Minecart minecart, Vector punchVelocity) {
 
+        boolean acceptPunch = false;
         if (MinecartRevolution.blockUtil.getSignBlockSign(minecart) == null) {
+            acceptPunch = true;
+        } else {
+            Entity passenger = minecart.getPassenger();
+            if (passenger instanceof Player) {
+                Player player = (Player) passenger;
+                if (punchMessagePlayerMap.containsKey(player) && punchMessagePlayerMap.get(player)) {
+                    acceptPunch = true;
+                }
+            }
+        }
+
+        if (acceptPunch) {
             if (punchVelocity.getX() > 0 && punchVelocity.getZ() > -0.5D && punchVelocity.getZ() < 0.5D) {
                 driveMinecart(minecart, "W");
             } else if (punchVelocity.getX() <= 0 && punchVelocity.getZ() > -0.5D && punchVelocity.getZ() < 0.5D) {
