@@ -3,10 +3,12 @@
 package de.MRTeam.MinecartRevolution.control;
 
 import java.util.HashMap;
+
 import de.MRTeam.MinecartRevolution.MinecartRevolution;
 import org.bukkit.Location;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Animals;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
@@ -20,22 +22,7 @@ public class BlockIntersection {
 
         Sign sign = MinecartRevolution.blockUtil.getSignBlockSign(minecart);
         if (sign == null) {
-            if (minecart.getPassenger() instanceof Player) {
-                Player player = (Player) minecart.getPassenger();
-                try {
-                    if (punchMessagePlayerMap.get(player) == null) {
-                        punchMessagePlayerMap.put(player, false);
-                    }
-                }
-                catch (NullPointerException ex) {
-                }
-                if (!punchMessagePlayerMap.get(player)) {
-                    minecart.setVelocity(new Vector(0, 0, 0));
-                    MinecartRevolution.messagesUtil.sendMessage(player, MinecartRevolution.messagesUtil.getMessage("punch", ""), true);
-                    punchMessagePlayerMap.remove(player);
-                    punchMessagePlayerMap.put(player, true);
-                }
-            }
+            this.sendPunchMessage(minecart);
         } else {
             if (checkLine(minecart, sign, 1)) {
                 return;
@@ -48,6 +35,22 @@ public class BlockIntersection {
             }
 
             driveMinecart(minecart, "M");
+        }
+    }
+
+    private void sendPunchMessage(Minecart minecart) {
+
+        Entity passenger = minecart.getPassenger();
+        if (passenger instanceof Player) {
+            Player player = (Player) passenger;
+            if (!punchMessagePlayerMap.containsKey(player)) {
+                punchMessagePlayerMap.put(player, false);
+            }
+            if (!punchMessagePlayerMap.get(player)) {
+                minecart.setVelocity(new Vector(0, 0, 0));
+                MinecartRevolution.messagesUtil.sendMessage(player, MinecartRevolution.messagesUtil.getMessage("punch", ""), true);
+                punchMessagePlayerMap.put(player, true);
+            }
         }
     }
 
