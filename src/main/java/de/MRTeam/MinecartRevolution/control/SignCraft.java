@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import net.minecraft.server.CraftingManager;
-import net.minecraft.server.ShapedRecipes;
+import net.minecraft.server.v1_8_R1.CraftingManager;
+import net.minecraft.server.v1_8_R1.ShapedRecipes;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.StorageMinecart;
@@ -37,7 +37,7 @@ public class SignCraft {
             StorageMinecart storageMinecart = (StorageMinecart) minecart;
 
             @SuppressWarnings ("unchecked")
-            Iterator<ShapedRecipes> iterator = CraftingManager.getInstance().recipies.iterator();
+            Iterator<ShapedRecipes> iterator = CraftingManager.getInstance().getRecipes().iterator();
 
             try {
                 while (iterator.hasNext()) {

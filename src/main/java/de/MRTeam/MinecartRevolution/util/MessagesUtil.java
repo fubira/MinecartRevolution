@@ -274,7 +274,7 @@ public class MessagesUtil {
 
     private String getChatColorToAndCode(String message) {
 
-        return message.replaceAll("§", "&");
+        return message.replaceAll(String.valueOf(ChatColor.COLOR_CHAR), "&");
     }
 
     public String formatMessage(String message) {
@@ -314,7 +314,7 @@ public class MessagesUtil {
         if (player != null) {
             player.sendMessage(message.replaceAll("(?i)&([a-n0-9])", "\u00A7$1"));
         } else {
-            System.out.println(message.replaceAll("(?i)&([a-n0-9])", "").replaceAll("§[a-n0-9]", ""));
+            System.out.println(message.replaceAll("(?i)&([a-n0-9])", "").replaceAll(String.valueOf(ChatColor.COLOR_CHAR) + "[a-n0-9]", ""));
         }
     }
 
@@ -322,13 +322,13 @@ public class MessagesUtil {
 
         if (level.equalsIgnoreCase("info")) {
             if (player == null) {
-                MinecartRevolution.mrLogger.info(formatMessage(message.replaceAll("(?i)&([a-n0-9])", "")).replaceAll("§[a-n0-9]", ""));
+                MinecartRevolution.mrLogger.info(formatMessage(message.replaceAll("(?i)&([a-n0-9])", "")).replaceAll(String.valueOf(ChatColor.COLOR_CHAR) + "[a-n0-9]", ""));
             } else {
                 sendMessage(player, message, noPrefix);
             }
         } else if (level.equalsIgnoreCase("warning")) {
             if (player == null) {
-                MinecartRevolution.mrLogger.warning(formatMessage(message.replaceAll("(?i)&([a-n0-9])", "")).replaceAll("§[a-n0-9]", ""));
+                MinecartRevolution.mrLogger.warning(formatMessage(message.replaceAll("(?i)&([a-n0-9])", "")).replaceAll(String.valueOf(ChatColor.COLOR_CHAR) + "[a-n0-9]", ""));
             } else {
                 sendMessage(player, message, noPrefix);
             }
