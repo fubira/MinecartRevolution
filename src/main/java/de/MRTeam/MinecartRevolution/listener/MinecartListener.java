@@ -3,6 +3,7 @@
 package de.MRTeam.MinecartRevolution.listener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import de.MRTeam.MinecartRevolution.MinecartRevolution;
 import de.MRTeam.MinecartRevolution.addon.ControlBlock;
 import de.MRTeam.MinecartRevolution.addon.ControlSign;
@@ -242,7 +243,22 @@ public class MinecartListener implements Listener {
                         Minecart minecart = (Minecart) event.getVehicle();
                         minecart.eject();
                         minecart.remove();
-                        chest.getInventory().setItem(chest.getInventory().firstEmpty(), new ItemStack(Material.STORAGE_MINECART));
+
+                        ArrayList<ItemStack> items = new ArrayList<ItemStack>();
+                        StorageMinecart storage = (StorageMinecart) minecart;
+                        items.add(new ItemStack(Material.STORAGE_MINECART));
+                        items.addAll(Arrays.asList(storage.getInventory().getContents()));
+                        for (ItemStack item: items) {
+                            if (item == null)
+                                continue;
+
+                            if (chest.getInventory().firstEmpty() != -1) {
+                                chest.getInventory().setItem(chest.getInventory().firstEmpty(), item);
+                            } else {
+                                chest.getWorld().dropItem(chest.getLocation(), item);
+                            }
+                        }
+ 
                     } else if (event.getVehicle() instanceof PoweredMinecart) {
                         Minecart minecart = (Minecart) event.getVehicle();
                         minecart.eject();
