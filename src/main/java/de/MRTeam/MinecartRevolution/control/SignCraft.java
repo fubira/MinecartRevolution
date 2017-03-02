@@ -7,11 +7,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import net.minecraft.server.v1_8_R1.CraftingManager;
-import net.minecraft.server.v1_8_R1.ShapedRecipes;
+/*
+import net.minecraft.server.v1_11_R1.CraftingManager;
+import net.minecraft.server.v1_11_R1.ShapedRecipes;
+*/
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Minecart;
-import org.bukkit.entity.StorageMinecart;
+import org.bukkit.entity.minecart.StorageMinecart;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import de.MRTeam.MinecartRevolution.MinecartRevolution;
@@ -24,7 +26,7 @@ public class SignCraft {
         if (sign == null) {
             return;
         }
-
+/*
         if (minecart instanceof StorageMinecart) {
             ArrayList<String> signShape = new ArrayList<String>();
             signShape = addStringArrayToArrayList(signShape, sign.getLine(1).split(","));
@@ -85,6 +87,7 @@ public class SignCraft {
             catch (ClassCastException ex) {
             }
         }
+*/
     }
 
     private ArrayList<String> addStringArrayToArrayList(ArrayList<String> arrayList, String[] array) {
@@ -108,7 +111,6 @@ public class SignCraft {
     }
 
     private void craft(StorageMinecart storageMinecart, ArrayList<String> recipeShape, ItemStack result) {
-
         try {
             HashMap<String, Integer> amountMap = new HashMap<String, Integer>();
             for (int shapeCounter = 0; shapeCounter < recipeShape.size(); shapeCounter++) {

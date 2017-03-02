@@ -16,8 +16,8 @@ import org.bukkit.block.Chest;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.PoweredMinecart;
-import org.bukkit.entity.StorageMinecart;
+import org.bukkit.entity.minecart.PoweredMinecart;
+import org.bukkit.entity.minecart.StorageMinecart;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleBlockCollisionEvent;
@@ -258,7 +258,7 @@ public class MinecartListener implements Listener {
                                 chest.getWorld().dropItem(chest.getLocation(), item);
                             }
                         }
- 
+
                     } else if (event.getVehicle() instanceof PoweredMinecart) {
                         Minecart minecart = (Minecart) event.getVehicle();
                         minecart.eject();

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.StorageMinecart;
+import org.bukkit.entity.minecart.StorageMinecart;
 import de.MRTeam.MinecartRevolution.MinecartRevolution;
 
 public class BlockClear {
