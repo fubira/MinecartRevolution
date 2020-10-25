@@ -49,6 +49,11 @@ public class BlockPlaceAction implements Listener {
                     MinecartRevolution.messagesUtil.sendMessage(event.getPlayer(), MinecartRevolution.messagesUtil.getMessage("createdEject", "placeCtrlBlock"), true);
                     return;
                 }
+            } else if (controlBlock.getBlock().getTypeId() == MinecartRevolution.configUtil.eject2BlockId[0] && (controlBlock.getBlock().getData() == MinecartRevolution.configUtil.eject2BlockId[1] || MinecartRevolution.configUtil.eject2BlockId[1] == -1)) {
+                if (MinecartRevolution.permissionUtil.hasPermission(event.getPlayer(), "placeCtrlBlock", "eject")) {
+                    MinecartRevolution.messagesUtil.sendMessage(event.getPlayer(), MinecartRevolution.messagesUtil.getMessage("createdEject", "placeCtrlBlock"), true);
+                    return;
+                }
             } else if (controlBlock.getBlock().getTypeId() == MinecartRevolution.configUtil.elevatorBlockId[0] && (controlBlock.getBlock().getData() == MinecartRevolution.configUtil.elevatorBlockId[1] || MinecartRevolution.configUtil.elevatorBlockId[1] == -1)) {
                 if (MinecartRevolution.permissionUtil.hasPermission(event.getPlayer(), "placeCtrlBlock", "elevator")) {
                     MinecartRevolution.messagesUtil.sendMessage(event.getPlayer(), MinecartRevolution.messagesUtil.getMessage("createdElevator", "placeCtrlBlock"), true);
@@ -127,6 +132,8 @@ public class BlockPlaceAction implements Listener {
             } else if (controlBlock.getBlock().getTypeId() == MinecartRevolution.configUtil.reverseBlockId[0] && (controlBlock.getBlock().getData() == MinecartRevolution.configUtil.reverseBlockId[1] || MinecartRevolution.configUtil.reverseBlockId[1] == -1)) {
                 MinecartRevolution.messagesUtil.sendMessage(event.getPlayer(), MinecartRevolution.messagesUtil.getMessage("destroyedReverse", "destroyedCtrlBlock"), true);
             } else if (controlBlock.getBlock().getTypeId() == MinecartRevolution.configUtil.ejectBlockId[0] && (controlBlock.getBlock().getData() == MinecartRevolution.configUtil.ejectBlockId[1] || MinecartRevolution.configUtil.ejectBlockId[1] == -1)) {
+                MinecartRevolution.messagesUtil.sendMessage(event.getPlayer(), MinecartRevolution.messagesUtil.getMessage("destroyedEject", "destroyedCtrlBlock"), true);
+            } else if (controlBlock.getBlock().getTypeId() == MinecartRevolution.configUtil.eject2BlockId[0] && (controlBlock.getBlock().getData() == MinecartRevolution.configUtil.eject2BlockId[1] || MinecartRevolution.configUtil.eject2BlockId[1] == -1)) {
                 MinecartRevolution.messagesUtil.sendMessage(event.getPlayer(), MinecartRevolution.messagesUtil.getMessage("destroyedEject", "destroyedCtrlBlock"), true);
             } else if (controlBlock.getBlock().getTypeId() == MinecartRevolution.configUtil.elevatorBlockId[0] && (controlBlock.getBlock().getData() == MinecartRevolution.configUtil.elevatorBlockId[1] || MinecartRevolution.configUtil.elevatorBlockId[1] == -1)) {
                 MinecartRevolution.messagesUtil.sendMessage(event.getPlayer(), MinecartRevolution.messagesUtil.getMessage("destroyedElevator", "destroyedCtrlBlock"), true);

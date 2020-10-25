@@ -46,6 +46,7 @@ public class ConfigUtil {
         configMap.put(breakBlockIdPath, getBlockIdFormat(brakeBlockId));
         configMap.put(reverseBlockIdPath, getBlockIdFormat(reverseBlockId));
         configMap.put(ejectBlockIdPath, getBlockIdFormat(ejectBlockId));
+        configMap.put(eject2BlockIdPath, getBlockIdFormat(eject2BlockId));
         configMap.put(elevatorBlockIdPath, getBlockIdFormat(elevatorBlockId));
         configMap.put(stationBlockIdPath, getBlockIdFormat(stationBlockId));
         configMap.put(killBlockIdPath, getBlockIdFormat(killBlockId));
@@ -89,6 +90,7 @@ public class ConfigUtil {
         brakeBlockId = MinecartRevolution.blockUtil.splitBlockData(config.getString(breakBlockIdPath));
         reverseBlockId = MinecartRevolution.blockUtil.splitBlockData(config.getString(reverseBlockIdPath));
         ejectBlockId = MinecartRevolution.blockUtil.splitBlockData(config.getString(ejectBlockIdPath));
+        eject2BlockId = MinecartRevolution.blockUtil.splitBlockData(config.getString(eject2BlockIdPath));
         elevatorBlockId = MinecartRevolution.blockUtil.splitBlockData(config.getString(elevatorBlockIdPath));
         stationBlockId = MinecartRevolution.blockUtil.splitBlockData(config.getString(stationBlockIdPath));
         killBlockId = MinecartRevolution.blockUtil.splitBlockData(config.getString(killBlockIdPath));
@@ -185,6 +187,7 @@ public class ConfigUtil {
     public String      breakBlockIdPath                   = blockIdPath + ".break";
     public String      reverseBlockIdPath                 = blockIdPath + ".reverse";
     public String      ejectBlockIdPath                   = blockIdPath + ".eject";
+    public String      eject2BlockIdPath                  = blockIdPath + ".eject2";
     public String      elevatorBlockIdPath                = blockIdPath + ".elevator";
     public String      stationBlockIdPath                 = blockIdPath + ".station";
     public String      killBlockIdPath                    = blockIdPath + ".kill";
@@ -219,6 +222,7 @@ public class ConfigUtil {
     public int[]       brakeBlockId                       = { 88, -1 };
     public int[]       reverseBlockId                     = { 35, 0 };
     public int[]       ejectBlockId                       = { 42, -1 };
+    public int[]       eject2BlockId                      = { 214, -1 };
     public int[]       elevatorBlockId                    = { 57, -1 };
     public int[]       stationBlockId                     = { 49, -1 };
     public int[]       killBlockId                        = { 48, -1 };

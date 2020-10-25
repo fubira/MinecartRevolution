@@ -38,6 +38,8 @@ public class BlockAction {
                 blockReverse.execute(minecart);
             } else if (MinecartRevolution.blockUtil.getControlBlock(minecart).getTypeId() == MinecartRevolution.configUtil.ejectBlockId[0] && (MinecartRevolution.blockUtil.getControlBlock(minecart).getData() == MinecartRevolution.configUtil.ejectBlockId[1] || MinecartRevolution.configUtil.ejectBlockId[1] == -1)) {
                 blockEject.execute(minecart);
+            } else if (MinecartRevolution.blockUtil.getControlBlock(minecart).getTypeId() == MinecartRevolution.configUtil.eject2BlockId[0] && (MinecartRevolution.blockUtil.getControlBlock(minecart).getData() == MinecartRevolution.configUtil.eject2BlockId[1] || MinecartRevolution.configUtil.eject2BlockId[1] == -1)) {
+                blockEject.execute(minecart);
             } else if (MinecartRevolution.blockUtil.getControlBlock(minecart).getTypeId() == MinecartRevolution.configUtil.elevatorBlockId[0] && (MinecartRevolution.blockUtil.getControlBlock(minecart).getData() == MinecartRevolution.configUtil.elevatorBlockId[1] || MinecartRevolution.configUtil.elevatorBlockId[1] == -1)) {
                 blockElevator.execute(minecart);
             } else if (MinecartRevolution.blockUtil.getControlBlock(minecart).getTypeId() == MinecartRevolution.configUtil.stationBlockId[0] && (MinecartRevolution.blockUtil.getControlBlock(minecart).getData() == MinecartRevolution.configUtil.stationBlockId[1] || MinecartRevolution.configUtil.stationBlockId[1] == -1)) {
