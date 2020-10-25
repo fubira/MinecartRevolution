@@ -30,6 +30,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 public class MinecartListener implements Listener {
+    private int vehicleUpdateEventCount = 0;
 
     public MinecartListener(MinecartRevolution plugin) {
 
@@ -39,6 +40,8 @@ public class MinecartListener implements Listener {
 
     @EventHandler
     public void onVehicleUpdate(VehicleUpdateEvent event) {
+        vehicleUpdateEventCount += 1;
+        boolean isSkipEvent = (vehicleUpdateEventCount % 4) != 0;
 
         if (event.getVehicle() instanceof Minecart) {
             Minecart minecart = (Minecart) event.getVehicle();
@@ -47,6 +50,12 @@ public class MinecartListener implements Listener {
             if (minecart.isDead()) {
                 return;
             }
+
+            boolean isVehicleMoving = true;
+            if (minecart.getVelocity().length() <= 0.001) {
+                isVehicleMoving = false;
+            }
+
             double speedNumber;
             if (MinecartRevolution.configUtil.constantMinecartSpeed.equalsIgnoreCase("true") && MinecartRevolution.minecartListener.isMinecartOnRail(minecart) && (minecart.getVelocity().getX() != 0.0D || minecart.getVelocity().getZ() != 0.0D)) {
                 Vector speed = new Vector();
@@ -63,6 +72,7 @@ public class MinecartListener implements Listener {
                 }
 
                 minecart.setVelocity(speed);
+                isVehicleMoving = true;
             }
 
             if (MinecartRevolution.configUtil.pushNearbyEntities.equalsIgnoreCase("true")) {
@@ -75,37 +85,43 @@ public class MinecartListener implements Listener {
                 }
             }
 
-            MinecartRevolution.blockAction.doBlockEvent(minecart.getLocation().getBlock(), minecart);
-            MinecartRevolution.signAction.doSignEvent(minecart.getLocation().getBlock(), minecart);
+            if (isVehicleMoving) {
+                MinecartRevolution.blockAction.doBlockEvent(minecart.getLocation().getBlock(), minecart);
+                MinecartRevolution.signAction.doSignEvent(minecart.getLocation().getBlock(), minecart);
+            }
 
-            try {
-                if (MinecartRevolution.blockUtil.getControlBlock(minecart) != null && MinecartRevolution.blockUtil.getControlBlock(minecart).isBlockIndirectlyPowered()) {
-                    if (MinecartRevolution.blockUtil.getControlBlock(minecart) != null && MinecartRevolution.blockUtil.getControlBlock(minecart).getTypeId() == MinecartRevolution.configUtil.stationBlockId[0] && (MinecartRevolution.blockUtil.getControlBlock(minecart).getData() == MinecartRevolution.configUtil.stationBlockId[1] || MinecartRevolution.configUtil.stationBlockId[1] == -1)) {
-                        MinecartRevolution.blockAction.blockStation.execute(minecart);
-                    }
-
-                    for (int counter = 0; counter < MinecartRevolution.blockAction.blockList.size(); counter++) {
-                        ControlBlock controlBlock = MinecartRevolution.blockAction.blockList.get(counter);
-                        int[] controlBlockId = MinecartRevolution.blockUtil.splitBlockData((String) MinecartRevolution.configUtil.getAddonSetting(controlBlock.plugin, "blockId." + controlBlock.getBlockName()));
-                        if (MinecartRevolution.blockUtil.getControlBlock(minecart).getTypeId() == controlBlockId[0] && (MinecartRevolution.blockUtil.getControlBlock(minecart).getData() == controlBlockId[1] || controlBlockId[1] == -1)) {
-                            controlBlock.onRedstonePower(minecart);
-                            break;
+            if (isVehicleMoving && !isSkipEvent) {
+                try {
+                    if (MinecartRevolution.blockUtil.getControlBlock(minecart) != null && MinecartRevolution.blockUtil.getControlBlock(minecart).isBlockIndirectlyPowered()) {
+                        if (MinecartRevolution.blockUtil.getControlBlock(minecart) != null && MinecartRevolution.blockUtil.getControlBlock(minecart).getTypeId() == MinecartRevolution.configUtil.stationBlockId[0] && (MinecartRevolution.blockUtil.getControlBlock(minecart).getData() == MinecartRevolution.configUtil.stationBlockId[1] || MinecartRevolution.configUtil.stationBlockId[1] == -1)) {
+                            MinecartRevolution.blockAction.blockStation.execute(minecart);
                         }
-                    }
-                } else if (MinecartRevolution.blockUtil.getSignBlockSign(minecart) != null && MinecartRevolution.blockUtil.getSignBlockSign(minecart).getBlock().isBlockIndirectlyPowered()) {
-                    for (int counter = 0; counter < MinecartRevolution.blockAction.blockList.size(); counter++) {
-                        ControlSign controlSign = MinecartRevolution.signAction.signList.get(counter);
-                        if ( (MinecartRevolution.blockUtil.getSignBlockSign(minecart).getLine(0).equalsIgnoreCase(controlSign.getLine(0)) || controlSign.getLine(0).equalsIgnoreCase("")) && (MinecartRevolution.blockUtil.getSignBlockSign(minecart).getLine(1).equalsIgnoreCase(controlSign.getLine(1)) || controlSign.getLine(1).equalsIgnoreCase("")) && (MinecartRevolution.blockUtil.getSignBlockSign(minecart).getLine(2).equalsIgnoreCase(controlSign.getLine(2)) || controlSign.getLine(2).equalsIgnoreCase("")) && (MinecartRevolution.blockUtil.getSignBlockSign(minecart).getLine(3).equalsIgnoreCase(controlSign.getLine(3)) || controlSign.getLine(3).equalsIgnoreCase(""))) {
-                            controlSign.onRedstonePower(minecart);
-                            break;
+
+                        for (int counter = 0; counter < MinecartRevolution.blockAction.blockList.size(); counter++) {
+                            ControlBlock controlBlock = MinecartRevolution.blockAction.blockList.get(counter);
+                            int[] controlBlockId = MinecartRevolution.blockUtil.splitBlockData((String) MinecartRevolution.configUtil.getAddonSetting(controlBlock.plugin, "blockId." + controlBlock.getBlockName()));
+                            if (MinecartRevolution.blockUtil.getControlBlock(minecart).getTypeId() == controlBlockId[0] && (MinecartRevolution.blockUtil.getControlBlock(minecart).getData() == controlBlockId[1] || controlBlockId[1] == -1)) {
+                                controlBlock.onRedstonePower(minecart);
+                                break;
+                            }
+                        }
+                    } else if (MinecartRevolution.blockUtil.getSignBlockSign(minecart) != null && MinecartRevolution.blockUtil.getSignBlockSign(minecart).getBlock().isBlockIndirectlyPowered()) {
+                        for (int counter = 0; counter < MinecartRevolution.blockAction.blockList.size(); counter++) {
+                            ControlSign controlSign = MinecartRevolution.signAction.signList.get(counter);
+                            if ( (MinecartRevolution.blockUtil.getSignBlockSign(minecart).getLine(0).equalsIgnoreCase(controlSign.getLine(0)) || controlSign.getLine(0).equalsIgnoreCase("")) && (MinecartRevolution.blockUtil.getSignBlockSign(minecart).getLine(1).equalsIgnoreCase(controlSign.getLine(1)) || controlSign.getLine(1).equalsIgnoreCase("")) && (MinecartRevolution.blockUtil.getSignBlockSign(minecart).getLine(2).equalsIgnoreCase(controlSign.getLine(2)) || controlSign.getLine(2).equalsIgnoreCase("")) && (MinecartRevolution.blockUtil.getSignBlockSign(minecart).getLine(3).equalsIgnoreCase(controlSign.getLine(3)) || controlSign.getLine(3).equalsIgnoreCase(""))) {
+                                controlSign.onRedstonePower(minecart);
+                                break;
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception ex) {
+                catch (Exception ex) {
+                }
             }
 
-            MinecartRevolution.pathFindUtil.findPathUpdate(minecart);
+            if (isVehicleMoving && !isSkipEvent) {
+                MinecartRevolution.pathFindUtil.findPathUpdate(minecart);
+            }
 
             if (MinecartRevolution.signAction.signFarm.farmTypeMap.containsKey(minecart)) {
                 if (minecart instanceof StorageMinecart) {
@@ -117,18 +133,22 @@ public class MinecartListener implements Listener {
                 }
             }
 
-            if (MinecartRevolution.configUtil.playEffects.equalsIgnoreCase("true")) {
-                if (MinecartRevolution.signAction.signEffect.effectMinecartMap.containsKey(minecart)) {
-                    ArrayList<String> effectList = MinecartRevolution.signAction.signEffect.effectMinecartMap.get(minecart);
-                    for (int counter = 0; counter < effectList.size(); counter++) {
-                        MinecartRevolution.playEffectUtil.playEffect(minecart, effectList.get(counter));
+            if (isVehicleMoving && !isSkipEvent) {
+                if (MinecartRevolution.configUtil.playEffects.equalsIgnoreCase("true")) {
+                    if (MinecartRevolution.signAction.signEffect.effectMinecartMap.containsKey(minecart)) {
+                        ArrayList<String> effectList = MinecartRevolution.signAction.signEffect.effectMinecartMap.get(minecart);
+                        for (int counter = 0; counter < effectList.size(); counter++) {
+                            MinecartRevolution.playEffectUtil.playEffect(minecart, effectList.get(counter));
+                        }
                     }
                 }
             }
 
-            if (MinecartRevolution.configUtil.loadMinecartChunks.equalsIgnoreCase("true")) {
-                if (!minecart.getWorld().getChunkAt(minecart.getLocation()).isLoaded()) {
-                    minecart.getWorld().getChunkAt(minecart.getLocation()).load();
+            if (isVehicleMoving && !isSkipEvent) {
+                if (MinecartRevolution.configUtil.loadMinecartChunks.equalsIgnoreCase("true")) {
+                    if (!minecart.getWorld().getChunkAt(minecart.getLocation()).isLoaded()) {
+                        minecart.getWorld().getChunkAt(minecart.getLocation()).load();
+                    }
                 }
             }
         }
