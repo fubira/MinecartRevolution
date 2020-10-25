@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.MRTeam</groupId>
   <artifactId>MinecartRevolution</artifactId>
-  <version>DEV-1.1.8</version>
+  <version>DEV-1.1.8-K0.1</version>
   <name>MinecartRevolution</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
