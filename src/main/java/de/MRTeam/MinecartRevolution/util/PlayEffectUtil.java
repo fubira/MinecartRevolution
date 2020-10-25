@@ -56,8 +56,10 @@ public class PlayEffectUtil {
                     entity.remove();
                 }
             }
-        } else if (effect.equalsIgnoreCase("Thunder")) {
+        } else if (effect.equalsIgnoreCase("ThunderS")) {
             world.strikeLightning(location.add(0, 4, 0));
+        } else if (effect.equalsIgnoreCase("Thunder")) {
+            world.spigot().strikeLightning(location.add(0, 4, 0), true);
         } else if (effect.equalsIgnoreCase("Hurt")) {
             for (Entity entity : minecart.getNearbyEntities(5, 5, 5)) {
                 entity.playEffect(EntityEffect.HURT);
@@ -133,7 +135,7 @@ public class PlayEffectUtil {
             }
         } else if (effect.equalsIgnoreCase("ThunderMulti")) {
             for (Entity entity : minecart.getNearbyEntities(5, 5, 5)) {
-                world.strikeLightning(entity.getLocation().add(0, 4, 0));
+                world.spigot().strikeLightning(entity.getLocation().add(0, 4, 0), true);
             }
         } else if (effect.equalsIgnoreCase("AnimationMulti")) {
             for (Entity entity : minecart.getNearbyEntities(5, 5, 5)) {
